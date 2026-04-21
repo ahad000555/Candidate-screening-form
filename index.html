@@ -2,166 +2,441 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title> Candidate Screening Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Elevate | Candidate Screening Profile</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #eef2f7, #dfe7f1);
-      padding: 24px;
-      color: #1f2937;
+      background: radial-gradient(circle at 10% 30%, #f1f5f9, #e2e8f0);
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
+      padding: 2rem 1.5rem;
+      color: #0a0f1c;
+      line-height: 1.4;
     }
-    .container {
-      max-width: 920px;
-      margin: auto;
-      background: rgba(255,255,255,0.96);
-      padding: 38px;
-      border-radius: 24px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.10);
-      backdrop-filter: blur(8px);
+
+    /* container with NO rounded corners — sharp, modern edges */
+    .form-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(148, 163, 184, 0.1);
+      backdrop-filter: blur(2px);
+      transition: all 0.2s ease;
     }
-    h1 {
-      text-align: center;
-      margin-bottom: 28px;
-      font-size: 30px;
-      letter-spacing: 0.3px;
+
+    /* header with straight edges, no rounding */
+    .form-header {
+      background: linear-gradient(115deg, #0f172a 0%, #1e293b 100%);
+      padding: 2rem 2.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
+
+    .form-header h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      background: linear-gradient(135deg, #FFFFFF, #cbd5e6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 0.4rem;
+    }
+
+    .form-header p {
+      color: #94a3b8;
+      font-size: 0.95rem;
+      font-weight: 400;
+      margin-top: 0.25rem;
+    }
+
+    /* main content area */
+    .form-content {
+      padding: 2.2rem 2.5rem 2.8rem;
+    }
+
+    /* section titles — sharp style, no rounded accents */
+    .section {
+      margin-bottom: 2.2rem;
+    }
+
     .section-title {
-      margin: 30px 0 14px;
-      font-size: 17px;
-      font-weight: 700;
-      color: #111827;
-      border-left: 4px solid #111827;
-      padding-left: 12px;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+      font-size: 1.2rem;
+      letter-spacing: -0.2px;
+      color: #0f172a;
     }
-    .grid {
+
+    .section-title span {
+      background: #0f172a;
+      width: 6px;
+      height: 26px;
+      display: inline-block;
+      background: linear-gradient(145deg, #1e293b, #0f172a);
+    }
+
+    /* responsive grid: clean, 2 or 3 columns */
+    .grid-layout {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
     }
-    .field {
+
+    /* field styling — crisp edges, no border radius excess */
+    .field-group {
       display: flex;
       flex-direction: column;
+      gap: 0.5rem;
     }
-    label {
-      font-size: 13px;
-      margin-bottom: 8px;
-      font-weight: 700;
-      color: #374151;
+
+    .field-group label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #334155;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
+
+    .field-group label::before {
+      content: "▹";
+      font-size: 10px;
+      color: #475569;
+      opacity: 0.7;
+    }
+
     input, select, textarea {
-      padding: 13px 14px;
-      border: 1px solid #d1d5db;
-      border-radius: 14px;
-      font-size: 14px;
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 0px;
+      padding: 0.85rem 1rem;
+      font-size: 0.95rem;
+      font-family: inherit;
+      color: #0f172a;
+      transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
       width: 100%;
-      background: #fafafa;
-      transition: all 0.25s ease;
-    }
-    input:focus, select:focus, textarea:focus {
       outline: none;
-      border-color: #111827;
-      background: #fff;
-      box-shadow: 0 0 0 4px rgba(17,24,39,0.08);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
     }
+
     textarea {
-      min-height: 110px;
       resize: vertical;
+      min-height: 100px;
     }
-    .full-width {
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 4px rgba(59,130,246,0.15);
+      background: #ffffff;
+    }
+
+    input:hover, select:hover, textarea:hover {
+      border-color: #cbd5e1;
+      background: #fefefe;
+    }
+
+    /* full-width fields inside grid */
+    .full-span {
       grid-column: 1 / -1;
     }
-    button {
-      margin-top: 34px;
+
+    /* subtle dividers — clean horizontal rule with no rounding */
+    .divider-light {
+      height: 1px;
+      background: #e2e8f0;
+      margin: 0.5rem 0 1.8rem;
       width: 100%;
-      padding: 16px;
+    }
+
+    /* call to action — sharp button, modern but not curvy */
+    .submit-wrapper {
+      margin-top: 2.2rem;
+      text-align: center;
+    }
+
+    .btn-submit {
+      background: linear-gradient(105deg, #0f172a 0%, #1f2a44 100%);
       border: none;
-      border-radius: 16px;
-      font-size: 16px;
+      padding: 1rem 2rem;
+      width: 100%;
+      border-radius: 0px;
       font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: 0.3px;
+      color: white;
       cursor: pointer;
-      background: linear-gradient(135deg, #111827, #374151);
-      color: #fff;
-      box-shadow: 0 12px 24px rgba(17,24,39,0.18);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: all 0.25s ease;
+      box-shadow: 0 10px 20px -5px rgba(15,23,42,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
     }
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 28px rgba(17,24,39,0.22);
+
+    .btn-submit:hover {
+      transform: translateY(-3px);
+      background: linear-gradient(105deg, #1e293b, #111827);
+      box-shadow: 0 18px 28px -12px rgba(0,0,0,0.3);
     }
-    @media (max-width: 600px) {
-      .container { padding: 22px; border-radius: 18px; }
-      h1 { font-size: 24px; }
-      .grid { gap: 16px; }
+
+    .btn-submit:active {
+      transform: translateY(1px);
+    }
+
+    /* custom select arrow - no rounded corners */
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23334155' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 1.1rem;
+    }
+
+    /* date inputs consistent */
+    input[type="date"] {
+      font-family: inherit;
+    }
+
+    /* responsive refinements — maintain sharpness everywhere */
+    @media (max-width: 780px) {
+      body {
+        padding: 1rem;
+      }
+      .form-content {
+        padding: 1.6rem;
+      }
+      .form-header {
+        padding: 1.5rem;
+      }
+      .form-header h1 {
+        font-size: 1.7rem;
+      }
+      .section-title {
+        font-size: 1.1rem;
+      }
+      .grid-layout {
+        gap: 1.2rem;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .form-content {
+        padding: 1.2rem;
+      }
+      .btn-submit {
+        padding: 0.85rem 1.2rem;
+        font-size: 0.95rem;
+      }
+      .field-group label {
+        font-size: 0.7rem;
+      }
+    }
+
+    /* focus outlines remain accessible */
+    input:focus-visible, select:focus-visible, textarea:focus-visible {
+      outline: 2px solid #3b82f6;
+      outline-offset: 1px;
+    }
+
+    /* remove any default rounding from cards, containers, or interactive elements */
+    .form-container, .form-header, .form-content, .btn-submit, input, select, textarea, .divider-light {
+      border-radius: 0px !important;
+    }
+
+    /* additional safeguard: ensure no border radius appears on any child element */
+    .field-group label::before {
+      border-radius: 0px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Applicant Basic Information Form</h1>
-
+<div class="form-container">
+  <div class="form-header">
+    <h1>✦ Candidate Screening Profile</h1>
+    <p>Comprehensive information · Secure & confidential</p>
+  </div>
+  <div class="form-content">
     <form action="https://formspree.io/f/mpqkjkpn" method="POST">
-      <div class="section-title">Personal Details</div>
-      <div class="grid">
-        <div class="field"><label>Full Name</label><input type="text" name="full_name" required></div>
-        <div class="field"><label>Date of Birth</label><input type="date" name="date_of_birth"></div>
-        <div class="field"><label>Gender</label><input type="text" name="gender"></div>
-        <div class="field"><label>Nationality</label><input type="text" name="nationality"></div>
-      </div>
-
-      <div class="section-title">Education History</div>
-      <div class="grid">
-        <div class="field full-width"><label>Please provide details</label><textarea name="education_history"></textarea></div>
-      </div>
-
-      <div class="section-title">Immigration Status</div>
-      <div class="grid">
-        <div class="field"><label>Current Visa Type</label><input type="text" name="visa_type"></div>
-        <div class="field"><label>Visa Expiry Date</label><input type="date" name="visa_expiry"></div>
-        <div class="field"><label>Eligible for Sponsorship</label>
-          <select name="eligible_sponsorship">
-            <option value="">Select</option>
-            <option>Yes</option>
-            <option>No</option>
-          </select>
+      <!-- PERSONAL DETAILS -->
+      <div class="section">
+        <div class="section-title">
+          <span></span> Personal Details
         </div>
-        <div class="field full-width"><label>Additional Immigration Information</label><textarea name="immigration_notes"></textarea></div>
-      </div>
-
-      <div class="section-title">Care Experience</div>
-      <div class="grid">
-        <div class="field"><label>Previous Care Experience</label><input type="text" name="care_experience"></div>
-        <div class="field"><label>Years of Experience</label><input type="text" name="years_experience"></div>
-        <div class="field"><label>Current Employer</label><input type="text" name="current_employer"></div>
-      </div>
-
-      <div class="section-title">Compliance</div>
-      <div class="grid">
-        <div class="field"><label>DBS Status</label><input type="text" name="dbs_status"></div>
-        <div class="field"><label>Full UK Driving Licence</label>
-          <select name="driving_licence"><option value="">Select</option><option>Yes</option><option>No</option></select>
-        </div>
-        <div class="field"><label>Own Vehicle</label>
-          <select name="own_vehicle"><option value="">Select</option><option>Yes</option><option>No</option></select>
+        <div class="grid-layout">
+          <div class="field-group">
+            <label>Full name</label>
+            <input type="text" name="full_name" required>
+          </div>
+          <div class="field-group">
+            <label>Date of birth</label>
+            <input type="date" name="date_of_birth">
+          </div>
+          <div class="field-group">
+            <label>Gender</label>
+            <input type="text" name="gender">
+          </div>
+          <div class="field-group">
+            <label>Nationality</label>
+            <input type="text" name="nationality">
+          </div>
         </div>
       </div>
 
-      <div class="section-title">Availability</div>
-      <div class="grid">
-        <div class="field"><label>Available for Flexible Shifts</label>
-          <select name="flexible_shifts"><option value="">Select</option><option>Yes</option><option>No</option></select>
+      <div class="divider-light"></div>
+
+      <!-- EDUCATION HISTORY -->
+      <div class="section">
+        <div class="section-title">
+          <span></span> Education History
         </div>
-        <div class="field"><label>Available Start Date</label><input type="date" name="start_date"></div>
+        <div class="grid-layout">
+          <div class="field-group full-span">
+            <label>Academic background & qualifications</label>
+            <textarea name="education_history" placeholder=" "></textarea>
+          </div>
+        </div>
       </div>
 
-      <div class="section-title">Additional Notes</div>
-      <div class="grid">
-        <div class="field full-width"><label>Any other relevant information</label><textarea name="additional_notes"></textarea></div>
+      <div class="divider-light"></div>
+
+      <!-- IMMIGRATION STATUS -->
+      <div class="section">
+        <div class="section-title">
+          <span></span> Immigration Status
+        </div>
+        <div class="grid-layout">
+          <div class="field-group">
+            <label>Current Visa Type</label>
+            <input type="text" name="visa_type">
+          </div>
+          <div class="field-group">
+            <label>Visa Expiry Date</label>
+            <input type="date" name="visa_expiry">
+          </div>
+          <div class="field-group">
+            <label>Eligible for Sponsorship</label>
+            <select name="eligible_sponsorship">
+              <option value="">Select</option>
+              <option>Yes</option>
+              <option>No</option>
+            </select>
+          </div>
+          <div class="field-group full-span">
+            <label>Additional immigration notes</label>
+            <textarea name="immigration_notes" placeholder=" "></textarea>
+          </div>
+        </div>
       </div>
 
-      <button type="submit">Submit Applicant</button>
+      <div class="divider-light"></div>
+
+      <!-- CARE EXPERIENCE -->
+      <div class="section">
+        <div class="section-title">
+          <span></span> Care Experience
+        </div>
+        <div class="grid-layout">
+          <div class="field-group">
+            <label>Previous care experience</label>
+            <input type="text" name="care_experience">
+          </div>
+          <div class="field-group">
+            <label>Years of experience</label>
+            <input type="text" name="years_experience">
+          </div>
+          <div class="field-group">
+            <label>Current employer</label>
+            <input type="text" name="current_employer">
+          </div>
+        </div>
+      </div>
+
+      <div class="divider-light"></div>
+
+      <!-- COMPLIANCE -->
+      <div class="section">
+        <div class="section-title">
+          <span></span> Compliance & Credentials
+        </div>
+        <div class="grid-layout">
+          <div class="field-group">
+            <label>DBS Status</label>
+            <input type="text" name="dbs_status">
+          </div>
+          <div class="field-group">
+            <label>Full UK Driving Licence</label>
+            <select name="driving_licence">
+              <option value="">Select</option>
+              <option>Yes</option>
+              <option>No</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Own Vehicle</label>
+            <select name="own_vehicle">
+              <option value="">Select</option>
+              <option>Yes</option>
+              <option>No</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider-light"></div>
+
+      <!-- AVAILABILITY -->
+      <div class="section">
+        <div class="section-title">
+          <span></span> Availability
+        </div>
+        <div class="grid-layout">
+          <div class="field-group">
+            <label>Available for Flexible Shifts</label>
+            <select name="flexible_shifts">
+              <option value="">Select</option>
+              <option>Yes</option>
+              <option>No</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Available Start Date</label>
+            <input type="date" name="start_date">
+          </div>
+        </div>
+      </div>
+
+      <div class="divider-light"></div>
+
+      <!-- ADDITIONAL NOTES -->
+      <div class="section">
+        <div class="section-title">
+          <span></span> Additional Notes
+        </div>
+        <div class="grid-layout">
+          <div class="field-group full-span">
+            <label>Relevant information or comments</label>
+            <textarea name="additional_notes" placeholder=" "></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="submit-wrapper">
+        <button type="submit" class="btn-submit">
+          ✦ Submit Applicant Profile ✦
+        </button>
+      </div>
     </form>
   </div>
+</div>
 </body>
 </html>
